@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>红包雨</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        section {
+            width: 100%;
+            height: 100%;
+            background: green;
+            overflow: hidden;
+        }
+
+        ul,
+        li {
+            list-style: none;
+            margin: 0;
+        }
+
+        #redList {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #redList>li {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <ul id="redList">
+
+        </ul>
+    </section>
+
+    <script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+    <script>
+        //渲染红包列表，如果有多个
+        function redRender() {
+            var redListObj = $('#redList');
+            var html = '';
+            const redData = ["red1", "red2", "red3", "red4", "red5", "red6", "red7", "red8", "red9", "red10"];
+            for (var i = 0; i < redData.length; i++) {
+                html += "<li><img src=./image/" + redData[i] + ".png" + " alt=red" + "></li>"
+            }
+            redListObj.html(html)
+        }
+        redRender()
+        //红包的运动
+        function moveRed(obj) {
+            var redArr = $('#redList>li');
+            if (obj) {
+                obj.css({ position: 'absolute', top: randomNum(-2000, -80) + 'px', left: randomNum(20, $('section').width() - 20) });
+                obj.animate({ top: $('section').height() }, randomNum(1000, 5000), 'linear', function () {
+                    moveRed(obj)
+                })
+            } else {
+                for (let i = 0; i < redArr.length; i++) {
+                    redArr.eq(i).css({ position: 'absolute', top: randomNum(-2000, -80) + 'px', left: randomNum(20, $('section').width() - 20) });
+                    redArr.eq(i).animate({ top: $('section').height() }, randomNum(1000, 5000), 'linear', function () {
+                        moveRed(redArr.eq(i))
+                    })
+                }
+            }
+
+        }
+        moveRed()
+
+        //随机生成某个区间之内的数
+        function randomNum(minNum, maxNum) {
+            switch (arguments.length) {
+                case 1:
+                    return parseInt(Math.random() * minNum + 1, 10);
+                    break;
+                case 2:
+                    return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

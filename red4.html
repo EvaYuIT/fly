@@ -1,0 +1,53 @@
+.Move1{
+    animation:myfirst 5.3s linear 0s infinite ;
+}
+.Move2{
+    animation:myfirst 4.2s linear 1s infinite ;
+}
+.Move3{
+    animation:myfirst 3.5s linear 1.5s infinite ;
+}
+.Move4{
+    animation:myfirst 3.1s linear 0.5s infinite ;
+}
+.Move5{
+    animation:myfirst 5.2s linear 2s infinite ;
+}
+.Move6{
+    animation:myfirst 4.8s linear 0s infinite ;
+}
+.Move7{
+    animation:myfirst 3.8s linear 1.5s infinite ;
+}
+.Move8{
+    animation:myfirst 3.6s linear 2s infinite ;
+}
+.Move9{
+    animation:myfirst 4.5s linear 0.5s infinite ;
+}
+.Move10{
+    animation:myfirst 2.3s linear 0s infinite ;
+}
+@keyframes myfirst{
+  0%   {transform: translate(0px,0px);}
+  100%  {transform: translate(0px,calc(120vh));}
+}
+
+
+//红包的运动
+function moveRed(obj,num){
+  var ulObj = $("#redList>li");
+    if(obj){
+        obj.css({position:'absolute',top:randomNum(-200,-80)+'px',left:randomNum(20,api.winWidth-40)})
+     }else{
+       for(let i = 0;i<ulObj.length;i++){
+          ulObj.eq(i).css({position:'absolute',top:randomNum(-200,-80)+'px',left:randomNum(20,api.winWidth-40)})
+          .addClass("Move"+randomNum(1,10))
+
+          ulObj.eq(i)[0].addEventListener('webkitAnimationIteration',function(){
+            moveRed(ulObj.eq(i))
+          })
+       }
+     }
+}
+PS：其中的api.winWidth是获取的屏幕宽度，是APICloud平台提供的API，如果是html5的话，可以使用对应的方法
