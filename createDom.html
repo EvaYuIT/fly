@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #redDOM {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            background: pink;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #redDOM>div {
+            width: 20px;
+            height: 20px;
+            background: url('./images2/bullet.png') no-repeat;
+            background-size: 100% 100%;
+        }
+        
+        .red1 {
+            position: absolute;
+            left: 100px;
+            bottom: 0;
+        }
+        
+        .red2 {
+            position: absolute;
+            left: 50px;
+            bottom: 0;
+        }
+        
+        .new-red1 {
+            bottom: 0;
+        }
+        
+        #btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <button id="btn">点击</button>
+        <div id="redDOM">
+            <div class="red1">
+
+            </div>
+            <div class="red2">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function move(ele) {
+            var timer = setInterval(function() {
+                var y = ele.offsetTop - 10;
+                if (y < 18) {
+                    clearInterval(timer); //清除定时器
+                    document.getElementById("redDOM").removeChild(ele);
+                    // delete gameEngine.allBullets[that.id]; //将超出游戏区域的子弹对象从allBullets中删除
+                } else {
+                    ele.style.top = y + "px"; //移动
+                }
+            }, 10);
+        }
+        document.getElementById("btn").onclick = function() {
+            //判断,div中有没有这个按钮,有就删除
+            //判断这个按钮的子元素是否存在
+            // if (!document.getElementsByClassName("btn2")) { //如果为false则创建
+
+            // }
+            var obj = document.createElement("div");
+            obj.classList.add('red1');
+            obj.classList.add('new-red1')
+            document.getElementById("redDOM").appendChild(obj);
+            // debugger
+            move(obj)
+                // var newObj = new moveFuc('new-red1');
+                // newObj.init().move();
+        };
+    </script>
+</body>
+
+</html>
